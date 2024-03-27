@@ -17,11 +17,12 @@ interface IBaseFilter {
     pageSize: number
 }
 
-export function Solution() {
+export default function Solution() {
     const initialState = { code: null, value: null, ordering: null, sortField: null, isDesc: null, currentPageNumber: 1, pageSize: 10 };
     const [filtersState, setFiltersState] = useState<IBaseFilter>(initialState)
     const [data, setData] = useState<IBasePaginationList>();
     const [isLoading, setIsLoading] = useState(false);
+
     const feachData = function (filters: IBaseFilter) {
         setIsLoading(true)
         axios.post("api/solutions/list", JSON.stringify(filters), { headers: { "Content-Type": "application/json" } })
