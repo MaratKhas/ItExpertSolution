@@ -1,0 +1,13 @@
+﻿namespace ItExpertSolution.Server.Models.Model.Solutions.Domain
+{
+    public class Solution
+    {
+        public int Id { get; set; }
+
+        public int Code { get; set; }
+
+        public string? Value { get; set; }
+
+        public int Ordering { get; set; }
+    }
+}
