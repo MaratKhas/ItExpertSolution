@@ -16,9 +16,19 @@
 2) itexpertsolution.client клиенсткая часть
 3) ItExpertSolution.Shared библиотека классов DTO
 
+Для подключения к базе нужно создать секрет пользователя в формате
+{
+  "ItExpert_Server": "", //Сервер
+  "ItExpert_Database": "", //Название БД
+  "ItExpert_User_ID": "", // Имя юзера с правами доступа к данным
+  "ItExpert_Password": "" // Пароль
+}
+
 
 Решение задачи 2
 Проект ItSolutionExpertTestSql
 Скрипт Task2
 Для 3 задачи 
 Скрипт Task3
+
+
