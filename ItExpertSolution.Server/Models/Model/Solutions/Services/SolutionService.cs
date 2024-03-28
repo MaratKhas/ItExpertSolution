@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ItExpertSolution.Server.Extentions;
 using ItExpertSolution.Server.Models.ItExpertSolution;
+using ItExpertSolution.Server.Models.Model.Bases;
 using ItExpertSolution.Server.Models.Model.Solutions.Domain;
 using ItExpertSolution.Server.Models.Model.Solutions.Filter;
 using ItExpertSolution.Server.Models.Model.Solutions.Interfaces;
@@ -60,7 +61,7 @@ namespace ItExpertSolution.Server.Models.Model.Solutions.Services
 
         private async Task BeforeSave()
         {
-            await _context.Database.ExecuteSqlRawAsync("delete from SolutionObject");
+            await _context.Database.ExecuteSqlRawAsync("delete from Solutions");
         }
 
         public async Task<BasePaginationListResultDto> GetList(SolutionFilter filter)
@@ -68,12 +69,18 @@ namespace ItExpertSolution.Server.Models.Model.Solutions.Services
             return await GetList(filter, s => _mapper.Map<SolutionOutputDto>(s));
         }
 
-        public async Task Save(List<SolutiontInputDto> list)
+        public async Task<BaseResponse> Save(List<SolutiontInputDto>? inputObjects)
         {
+            var response = new BaseResponse();
+            if (inputObjects == null || inputObjects.Count() == 0)
+            {
+                response.Error = "Невозможно сохранить пустую коллекцию";
+                return response;
+            }
             await BeforeSave();
-            list.OrderBy(o => o.Code);
+            inputObjects.OrderBy(o => o.Code);
             var ordering = 1;
-            foreach (var item in list)
+            foreach (var item in inputObjects)
             {
                 var entity = _mapper.Map<Solution>(item);
                 entity.Ordering = ordering;
@@ -81,6 +88,7 @@ namespace ItExpertSolution.Server.Models.Model.Solutions.Services
                 ordering++;
             }
             await _context.SaveChangesAsync();
+            return response;
         }
     }
 }

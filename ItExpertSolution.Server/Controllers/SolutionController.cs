@@ -43,11 +43,11 @@ namespace ItExpertSolution.Server.Controllers
 
                     await _service.Save(list);
                 }
-                catch 
+                catch
                 {
-                    response.Error  = "Не валидный json формат, пожалуйста исправьте ошибки";
+                    response.Error = "Не валидный json формат, пожалуйста исправьте ошибки";
                 }
-            }            
+            }
             return response;
         }
 
